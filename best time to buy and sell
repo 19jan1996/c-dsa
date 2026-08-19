@@ -1,1 +1,27 @@
 
+int min(int a, int b)
+{
+ return (a<b)?a:b;
+}
+
+int max(int a, int b)
+{
+ return (a>b)?a:b;
+}
+
+int maxProfit(int* prices, int pricesSize) {
+     
+     if(pricesSize <=0) 
+     return 0;
+    int max_profit = 0;
+    int min_price = INT_MAX;
+    int current_price = 0; 
+    int i;
+    for(i =0; i<pricesSize;i++)
+    {
+    min_price = min(min_price,prices[i]);
+    current_price = prices[i]-min_price;
+    max_profit = max(current_price,max_profit);
+    }
+    return max_profit;
+}
