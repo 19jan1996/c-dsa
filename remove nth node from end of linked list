@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definition for a singly-linked list node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to remove the N-th node from the end
+struct Node* removeNthFromEnd(struct Node* head, int n) {
+     int len = 0; 
+     struct Node* temp = head;
+     while(temp != NULL)
+     {
+        temp = temp->next;
+        len++;
+     }
+      temp = head;
+     for(int i =1; i < len-n; i++ )
+     {
+        temp = temp->next;
+     }
+     temp ->next = temp->next->next;
+
+     return head;
+}
+
+// Helper function to insert a node at the end of the list
+void append(struct Node** head_ref, int new_data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = NULL;
+
+    if (*head_ref == NULL) {
+        *head_ref = new_node;
+        return;
+    }
+
+    struct Node* last = *head_ref;
+    while (last->next != NULL) {
+        last = last->next;
+    }
+    last->next = new_node;
+}
+
+// Helper function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf("%d -> ", node->data);
+        node = node->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Create a linked list: 1 -> 2 -> 3 -> 4 -> 5 -> NULL
+    append(&head, 1);
+    append(&head, 2);
+    append(&head, 3);
+    append(&head, 4);
+    append(&head, 5);
+    append(&head, 6);
+    append(&head, 7);
+    append(&head, 8);
+
+    printf("Original List:\n");
+    printList(head);
+
+    int n = 6; // Remove the 2nd node from the end (which is 4)
+    printf("\nRemoving %d-th node from the end...\n", n);
+    head = removeNthFromEnd(head, n);
+
+    printf("\nModified List:\n");
+    printList(head);
+
+    // Clean up remaining memory before exiting
+    while (head != NULL) {
+        struct Node* temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
