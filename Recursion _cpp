@@ -1,0 +1,19 @@
+Simple program to print name n time :
+
+include <iostream>
+using namespace std;
+
+void fun_printname_ntimes(int i, int n)
+{
+    if (i > n) return;
+    cout << "tanuja" << endl;
+    fun_printname_ntimes(i + 1, n);
+}
+
+int main() {
+    int n;
+    cout << "Enter n : "<< endl;
+    cin >> n;                     // program WAITS here for you to type a number + Enter
+    fun_printname_ntimes(1, n);
+    return 0;
+}
