@@ -17,3 +17,35 @@ int main() {
     fun_printname_ntimes(1, n);
     return 0;
 }
+
+Time complex : O(N)  Space complex : O(N) 
+
+
+revrese array :
+#include <iostream>
+using namespace std;
+
+// Print array in reverse using recursion
+void fun_revarr(int arr[], int n)
+{
+    if (n <= 0) return;          // Fix 1: check n <= 0 (n can be 0)
+    cout << arr[n-1] << " ";     // Fix 2: add semicolon and space
+    fun_revarr(arr, n-1);
+}
+
+int main()
+{
+    int n;                       // Fix 3: declare n first
+    cout << "Enter n: " << endl;
+    cin >> n;
+
+    int arr[n];                  // Fix 4: declare array AFTER reading n
+                                 // (VLA is non-standard C++; see note below)
+
+    for (int i = 0; i < n; i++)  // Fix 5: use index loop, read into arr[i]
+        cin >> arr[i];
+
+    fun_revarr(arr, n);
+    cout << endl;
+    return 0;
+}
